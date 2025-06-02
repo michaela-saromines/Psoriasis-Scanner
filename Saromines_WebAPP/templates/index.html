@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Psoriasis Detector - Upload Image{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div id="agreement-section">
+            <h2 class="text-center">Terms of Agreement</h2>
+            <p>Please read and agree to the following terms before proceeding:</p>
+            <p>Your uploaded image will be analyzed to detect potential signs of psoriasis. The analysis is performed by an AI model, and the results are for informational purposes only and should not be considered a medical diagnosis.</p>
+            <p>By clicking "Continue," you acknowledge and agree that your image data may be processed to provide the detection result and potentially for research to improve the model's accuracy. We are committed to protecting your privacy and will handle your data responsibly.</p>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="agreement-checkbox">
+                <label class="form-check-label" for="agreement-checkbox" id="agreement-checkbox-label">
+                    I agree to the terms and conditions.
+                </label>
+            </div>
+            <div class="d-grid gap-2">
+                <button id="agreement-button" class="btn btn-success mt-3" disabled>Continue to Image Upload</button>
+            </div>
+        </div>
+
+        <form id="upload-form" class="p-3 text-center" action='/' method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="imagefile" class="form-label">Select an image of skin:</label>
+                <input class="form-control" type="file" name="imagefile" id="imagefile" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Image</button>
+        </form>
+
+        {% if prediction %}
+        <div class="prediction-container mt-4">
+            <p class="mb-0"><strong>Prediction:</strong> {{ prediction }}</p>
+            {% if uploaded_filename %}
+            <img src="{{ url_for('uploaded_file', folder=predicted_folder, filename=uploaded_filename) }}" alt="Uploaded Image" class="img-fluid">
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const agreementCheckbox = document.getElementById('agreement-checkbox');
+        const agreementButton = document.getElementById('agreement-button');
+        const uploadForm = document.getElementById('upload-form');
+        const agreementSection = document.getElementById('agreement-section');
+        const galleryButtonContainer = document.getElementById('gallery-button-container'); // Get the gallery button container
+        
+        // *** CHANGED from localStorage to sessionStorage ***
+        const hasAgreed = sessionStorage.getItem('hasAgreedToTerms'); // Get agreement status from sessionStorage
+
+        // Function to show the upload form and gallery button
+        function showContent() {
+            agreementSection.style.display = 'none';
+            uploadForm.style.display = 'block';
+            galleryButtonContainer.style.display = 'block'; // Show the gallery button
+        }
+
+        // Check if the user has previously agreed on page load
+        if (hasAgreed === 'true') {
+            showContent(); // Show content immediately if agreed
+        } else {
+            agreementSection.style.display = 'block';
+            uploadForm.style.display = 'none';
+            galleryButtonContainer.style.display = 'none'; // Ensure it's hidden if not agreed
+        }
+
+        agreementCheckbox.addEventListener('change', function () {
+            agreementButton.disabled = !this.checked;
+        });
+
+        agreementButton.addEventListener('click', function () {
+            // *** CHANGED from localStorage to sessionStorage ***
+            sessionStorage.setItem('hasAgreedToTerms', 'true'); // Store that the user has agreed
+            showContent(); // Show content after agreement
+        });
+    </script>
+{% endblock %}
