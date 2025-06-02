@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Psoriasis Detector{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: sans-serif;
+            position: relative; /* Needed for positioning the button */
+        }
+
+        .app-header {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #ffffff; /* White background for the header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-header-title a {
+            margin: 0;
+            color: #007bff; /* Primary blue color */
+            font-size: 1.5rem; /* Adjust font size as needed */
+            text-decoration: none; /* Remove underline from hyperlink */
+            font-family: 'Garamond', serif; /* Apply formal font */
+            font-weight: bold; /* Make it bold */
+            line-height: 1.2; /* Adjust line height for better spacing with break */
+        }
+
+        .app-header-title a:hover {
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        .gallery-button-container .btn {
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        .horizontal-line {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+            margin-top: 0; /* Adjust as needed */
+            margin-bottom: 20px; /* Space below the line */
+        }
+
+        /* Styles from original index.html for main container and other elements */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff; /* Primary blue color */
+            margin-bottom: 30px;
+        }
+
+        #agreement-section {
+            background-color: #e9ecef; /* Light gray background for the section */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        #agreement-section h2 {
+            color: #28a745; /* Success green color */
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #agreement-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        #agreement-checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        #agreement-checkbox {
+            margin-right: 10px;
+        }
+
+        #upload-form {
+            display: none;
+            background-color: #f0f0f0; /* Slightly darker gray for the form */
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .prediction-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #d4edda; /* Light green for positive feedback */
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            color: #155724;
+            text-align: center;
+        }
+
+        .prediction-container img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gallery specific styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 150px; /* Fixed height for consistency */
+            object-fit: cover; /* Crop to fit, maintain aspect ratio */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center; /* Center the buttons */
+            gap: 15px; /* Space between buttons */
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <div class="app-header-title">
+            <a href="{{ url_for('design') }}">Psoriasis Skin<br>Condition Detector</a>
+        </div>
+        <div class="gallery-button-container" id="gallery-button-container">
+            <a href="{{ url_for('gallery_main') }}" class="btn btn-info">Gallery</a>
+        </div>
+    </div>
+    <hr class="horizontal-line">
+
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

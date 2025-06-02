@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Psoriasis Detector - Gallery Categories{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="my-4">Select Gallery Category</h1>
+
+        <div class="category-buttons">
+            <a href="{{ url_for('gallery', category='normal') }}" class="btn btn-primary btn-lg">Normal Gallery</a>
+            <a href="{{ url_for('gallery', category='psoriasis') }}" class="btn btn-warning btn-lg">Psoriasis Gallery</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Ensure the gallery button container is visible on this page as well
+        const galleryButtonContainer = document.getElementById('gallery-button-container');
+        if (galleryButtonContainer) {
+            galleryButtonContainer.style.display = 'block'; 
+        }
+    </script>
+{% endblock %}

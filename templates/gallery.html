@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Psoriasis Detector - {{ category.capitalize() }} Gallery{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="my-4">Gallery: {{ category.capitalize() }} Cases</h1>
+        {% if images %}
+            <div class="gallery-grid">
+                {% for image in images %}
+                    <div class="gallery-item">
+                        <img src="{{ url_for('uploaded_file', folder=category, filename=image) }}" alt="{{ category }} case">
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No {{ category }} images found yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Ensure the gallery button container is visible on gallery page as well
+        const galleryButtonContainer = document.getElementById('gallery-button-container');
+        if (galleryButtonContainer) {
+            galleryButtonContainer.style.display = 'block';
+        }
+    </script>
+{% endblock %}
